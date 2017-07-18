@@ -16,30 +16,31 @@ namespace pk3DS.Core.CTR
         public DARC(byte[] Data = null)
         {
             if (Data == null) return;
-            using (BinaryReader br = new BinaryReader(new MemoryStream(Data)))
-            try
-            {
-                Header = new DARCHeader(br);
-                br.BaseStream.Position = Header.FileTableOffset;
-                FileTableEntry root = new FileTableEntry(br);
-                Entries = new FileTableEntry[root.DataLength];
-                Entries[0] = root;
-                for (int i = 1; i < root.DataLength; i++) Entries[i] = new FileTableEntry(br);
-                FileNameTable = new NameTableEntry[root.DataLength];
-                uint offs = 0;
-                for (int i = 0; i < root.DataLength; i++)
+            using (var memoryStream = new MemoryStream(Data))
+            using (BinaryReader br = new BinaryReader(memoryStream))
+                try
                 {
-                    char c; string s = string.Empty;
-                    while ((c = (char) br.ReadUInt16()) > 0) s += c;
+                    Header = new DARCHeader(br);
+                    br.BaseStream.Position = Header.FileTableOffset;
+                    FileTableEntry root = new FileTableEntry(br);
+                    Entries = new FileTableEntry[root.DataLength];
+                    Entries[0] = root;
+                    for (int i = 1; i < root.DataLength; i++) Entries[i] = new FileTableEntry(br);
+                    FileNameTable = new NameTableEntry[root.DataLength];
+                    uint offs = 0;
+                    for (int i = 0; i < root.DataLength; i++)
+                    {
+                        char c; string s = string.Empty;
+                        while ((c = (char)br.ReadUInt16()) > 0) s += c;
 
-                    FileNameTable[i] = new NameTableEntry(offs, s);
-                    offs += (uint)s.Length * 2 + 2;
+                        FileNameTable[i] = new NameTableEntry(offs, s);
+                        offs += (uint)s.Length * 2 + 2;
+                    }
+                    br.BaseStream.Position = Header.FileDataOffset;
+                    this.Data = br.ReadBytes((int)(Header.FileSize - Header.FileDataOffset));
                 }
-                br.BaseStream.Position = Header.FileDataOffset;
-                this.Data = br.ReadBytes((int)(Header.FileSize - Header.FileDataOffset));
-            }
-            catch (Exception)
-            { br.Close(); }
+                catch (Exception)
+                { }
         }
 
         public class DARCHeader

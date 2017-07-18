@@ -39,7 +39,7 @@ namespace pk3DS.Core
         private uint TotalLength { get { return BitConverter.ToUInt32(Data, 0x4); } set { BitConverter.GetBytes(value).CopyTo(Data, 0x4); } }
         private uint InitialKey { get { return BitConverter.ToUInt32(Data, 0x8); } set { BitConverter.GetBytes(value).CopyTo(Data, 0x8); } } // Always 0x00000000
         private uint SectionDataOffset { get { return BitConverter.ToUInt32(Data, 0xC); } set { BitConverter.GetBytes(value).CopyTo(Data, 0xC); } } // Always 0x0010
-        private uint SectionLength { get { return BitConverter.ToUInt32(Data, (int)SectionDataOffset); } set { BitConverter.GetBytes(value).CopyTo(Data, SectionDataOffset); } }
+        private uint SectionLength { get { return BitConverter.ToUInt32(Data, (int)SectionDataOffset); } set { BitConverter.GetBytes(value).CopyTo(Data, (int)SectionDataOffset); } }
         private LineInfo[] LineOffsets
         {
             get

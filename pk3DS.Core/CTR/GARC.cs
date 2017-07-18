@@ -686,7 +686,7 @@ namespace pk3DS.Core.CTR
                 var SubEntry = Entry.SubEntries[subfile];
                 if (!SubEntry.Exists)
                     throw new ArgumentException("SubFile does not exist.");
-                var offset = SubEntry.Start + garc.DataOffset;
+                int offset = (int)(SubEntry.Start + garc.DataOffset);
                 byte[] data = new byte[SubEntry.Length];
                 Array.Copy(Data, offset, data, 0, data.Length);
                 return data;
@@ -787,7 +787,7 @@ namespace pk3DS.Core.CTR
                 var SubEntry = Entry.SubEntries[subfile];
                 if (!SubEntry.Exists)
                     throw new ArgumentException("SubFile does not exist.");
-                var offset = SubEntry.Start + garc.DataOffset;
+                int offset = (int)(SubEntry.Start + garc.DataOffset);
                 byte[] data = new byte[SubEntry.Length];
                 Array.Copy(Data, offset, data, 0, data.Length);
                 return data;
@@ -895,5 +895,5 @@ namespace pk3DS.Core.CTR
             public int DataSize;
         }
     }
-    #endregion
+#endregion
 }

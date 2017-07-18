@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net40</TargetFrameworks>
+    <TargetFrameworks>net40;net46;netstandard1.3</TargetFrameworks>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net40|AnyCPU'">
@@ -12,7 +13,38 @@
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
 
-  <ItemGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net46|AnyCPU'">
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net46|AnyCPU'">
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard1.3|AnyCPU'">
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.3|AnyCPU'">
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)'=='netstandard1.3'">
+    <Compile Remove="CTR\BCLIM.cs" />
+    <Compile Remove="CTR\BLZ.cs" />
+    <Compile Remove="CTR\CRO.cs" />
+    <Compile Remove="CTR\CTR.cs" />
+    <Compile Remove="CTR\NCCH.cs" />
+    <Compile Remove="CTR\NCSD.cs" />
+    <Compile Remove="CTR\RomFS.cs" />
+    <Compile Remove="CTR\SMDH.cs" />
+    <Compile Remove="CTR\Exheader.cs" />
+    <Compile Remove="Structures\TypeChart.cs" />
+    <Compile Remove="Properties\Resources.Designer.cs" />
+    <Resource Remove="Properties\Resources.resx" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)'!='netstandard1.3'">
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
 
