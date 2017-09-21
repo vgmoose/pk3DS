@@ -198,7 +198,7 @@
             this.TC_Pokemon.Location = new System.Drawing.Point(12, 40);
             this.TC_Pokemon.Name = "TC_Pokemon";
             this.TC_Pokemon.SelectedIndex = 0;
-            this.TC_Pokemon.Size = new System.Drawing.Size(445, 375);
+            this.TC_Pokemon.Size = new System.Drawing.Size(550, 550);
             this.TC_Pokemon.TabIndex = 416;
             // 
             // TP_General
@@ -275,7 +275,7 @@
             this.TP_General.Location = new System.Drawing.Point(4, 22);
             this.TP_General.Name = "TP_General";
             this.TP_General.Padding = new System.Windows.Forms.Padding(3);
-            this.TP_General.Size = new System.Drawing.Size(437, 349);
+            this.TP_General.Size = new System.Drawing.Size(550 , 550);
             this.TP_General.TabIndex = 0;
             this.TP_General.Text = "General Info";
             this.TP_General.UseVisualStyleBackColor = true;
@@ -1580,17 +1580,17 @@
             // 
             // PersonalEditor7
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(469, 426);
+            this.ClientSize = new System.Drawing.Size(700, 700);
             this.Controls.Add(this.B_Dump);
             this.Controls.Add(this.PB_MonSprite);
             this.Controls.Add(this.TC_Pokemon);
             this.Controls.Add(this.L_Species_Precursor);
             this.Controls.Add(this.CB_Species);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(485, 465);
-            this.MinimumSize = new System.Drawing.Size(485, 465);
+            this.MaximumSize = new System.Drawing.Size(700, 700);
+            this.MinimumSize = new System.Drawing.Size(700, 700);
             this.Name = "PersonalEditor7";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Personal Stats Editor";

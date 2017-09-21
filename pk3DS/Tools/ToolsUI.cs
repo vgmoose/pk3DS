@@ -15,14 +15,9 @@ namespace pk3DS
         {
             InitializeComponent();
             AllowDrop = PB_Unpack.AllowDrop = PB_Repack.AllowDrop = PB_BCLIM.AllowDrop = true;
-            DragEnter += tabMain_DragEnter;
-            DragDrop += tabMain_DragDrop;
-            PB_Unpack.DragEnter += tabMain_DragEnter;
-            PB_Unpack.DragDrop += tabMain_DragDrop;
-            PB_Repack.DragEnter += tabMain_DragEnter;
-            PB_Repack.DragDrop += tabMain_DragDrop;
-            PB_BCLIM.DragEnter += tabMain_DragEnter;
-            PB_BCLIM.DragDrop += tabMain_DragDrop;
+            PB_Unpack.MouseDown += tabMain_MouseDown;
+            PB_Repack.MouseDown += tabMain_MouseDown;
+            PB_BCLIM.MouseDown += tabMain_MouseDown;
             CLIMWindow = PB_BCLIM.Size;
             CB_Repack.Items.Add("Autodetect");
             CB_Repack.Items.Add("GARC Pack");
@@ -30,15 +25,26 @@ namespace pk3DS
             CB_Repack.Items.Add("Mini Pack (from Name)");
             CB_Repack.SelectedIndex = 0;
         }
-        private void tabMain_DragEnter(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
-        }
-        private void tabMain_DragDrop(object sender, DragEventArgs e)
-        {
-            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-            string path = files[0]; // open first D&D
 
+        private void tabMain_MouseDown(object sender, MouseEventArgs e)
+        {
+			Stream myStream = null;
+			OpenFileDialog openFileDialog1 = new OpenFileDialog();
+
+			openFileDialog1.InitialDirectory = "c:\\";
+			openFileDialog1.Filter = "GARC, DARC, or Mini Pack files All files (*.*)|*.*";
+			openFileDialog1.FilterIndex = 2;
+			openFileDialog1.RestoreDirectory = true;
+
+			if (openFileDialog1.ShowDialog() == DialogResult.OK)
+			{
+                // call the normal function that is called on a drag/drop with the chosen path
+                tabMain_DragDrop(sender, openFileDialog1.FileName);
+			}
+        }
+
+        private void tabMain_DragDrop(object sender, string path)
+        {
             if (sender == PB_Unpack)
                 openARC(path, pBar1);
             else if (sender == PB_BCLIM)
